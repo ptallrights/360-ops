@@ -1,0 +1,13 @@
+#!/bin/sh
+. /root/.bash_profile
+
+body() {
+    IFS= read -r header
+    printf '%s\n' "$header"
+    "$@"
+}
+
+echo "CPU占用Top 10"
+echo "----------------------------------"
+ps -eo rss,pmem,pcpu,vsize,args |body sort -k 3 -r -n | head -n 10
+
